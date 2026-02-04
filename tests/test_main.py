@@ -73,6 +73,63 @@ class TestProductCategory(unittest.TestCase):
         self.assertEqual(Category.category_count, 2)
         self.assertEqual(Category.product_count, 4)
 
+    def test_category2_attributes(self):
+        # Создаем продукт и категорию для тестирования
+        product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+        category2 = Category(
+            "Телевизоры",
+            "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
+            [product4]
+        )
+
+        # Проверяем атрибуты category2
+        self.assertEqual(category2.name, "Телевизоры")
+        self.assertEqual(category2.description,
+                         "Современный телевизор, который позволяет наслаждаться "
+                         "просмотром, станет вашим другом и помощником")
+        self.assertEqual(len(category2.products), 1)
+        self.assertIn(product4, category2.products)
+
+    def test_category1_attributes(self):
+        # Создаем продукты и категорию для тестирования
+        product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+        product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+        product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+
+        category1 = Category(
+            "Смартфоны",
+            "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+            [product1, product2, product3]
+        )
+
+        # Проверяем атрибуты category1
+        self.assertTrue(category1.name == "Смартфоны")
+        self.assertEqual(category1.description,
+                         "Смартфоны, как средство не только коммуникации, но и "
+                         "получения дополнительных функций для удобства жизни")
+        self.assertEqual(len(category1.products), 3)
+
+    def test_product1_attributes(self):
+        product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+        self.assertEqual(product1.name, "Samsung Galaxy S23 Ultra")
+        self.assertEqual(product1.description, "256GB, Серый цвет, 200MP камера")
+        self.assertEqual(product1.price, 180000.0)
+        self.assertEqual(product1.quantity, 5)
+
+    def test_product2_attributes(self):
+        product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+        self.assertEqual(product2.name, "Iphone 15")
+        self.assertEqual(product2.description, "512GB, Gray space")
+        self.assertEqual(product2.price, 210000.0)
+        self.assertEqual(product2.quantity, 8)
+
+    def test_product3_attributes(self):
+        product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+        self.assertEqual(product3.name, "Xiaomi Redmi Note 11")
+        self.assertEqual(product3.description, "1024GB, Синий")
+        self.assertEqual(product3.price, 31000.0)
+        self.assertEqual(product3.quantity, 14)
+
 
 if __name__ == '__main__':
     unittest.main()
