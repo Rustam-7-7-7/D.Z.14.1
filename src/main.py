@@ -3,7 +3,7 @@ class Product:
         # Атрибуты экземпляра класса Product
         self.name = name
         self.description = description
-        self._price = price  # Приватный атрибут
+        self.__price = price  # Приватный атрибут
         self.quantity = quantity
 
     @classmethod
@@ -17,12 +17,12 @@ class Product:
 
     @property
     def price(self):
-        return self._price
+        return self.__price
 
     @price.setter
     def price(self, value):
         if value > 0:
-            self._price = value
+            self.__price = value
         else:
             print("Цена не должна быть нулевая или отрицательная")
 
@@ -36,7 +36,7 @@ class Category:
         # Атрибуты экземпляра класса Category
         self.name = name
         self.description = description
-        self._products = products  # Приватный список продуктов
+        self.__products = products  # Приватный список продуктов
 
         # Увеличиваем количество категорий при создании нового объекта
         Category.category_count += 1
@@ -45,13 +45,13 @@ class Category:
         Category.product_count += len(products)
 
     def add_product(self, product):
-        self._products.append(product)
+        self.__products.append(product)
         Category.product_count += 1
 
     @property
     def products(self):
         return "\n".join(
-            [f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт." for product in self._products])
+            [f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт." for product in self.__products])
 
 
 if __name__ == "__main__":
