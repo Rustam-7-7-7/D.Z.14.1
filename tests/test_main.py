@@ -1,5 +1,5 @@
 import unittest
-from src.main import Product, Category  # Импортируй свои классы из нужного модуля
+from src.main import Product, Category, Smartphone, LawnGrass
 
 
 class TestProductCategory(unittest.TestCase):
@@ -101,6 +101,30 @@ class TestProductCategory(unittest.TestCase):
             "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт."
         )
         self.assertEqual(self.category.products, expected_products)
+
+    def test_smartphone_initialization(self):
+        smartphone = Smartphone("Test Smartphone", "Description", 1000.0, 10, 95.5, "Model X", 256, "Black")
+        self.assertEqual(smartphone.efficiency, 95.5)
+        self.assertEqual(smartphone.model, "Model X")
+        self.assertEqual(smartphone.memory, 256)
+        self.assertEqual(smartphone.color, "Black")
+
+    def test_lawngrass_initialization(self):
+        grass = LawnGrass("Test Grass", "Description", 50.0, 20, "Country", "7 days", "Green")
+        self.assertEqual(grass.country, "Country")
+        self.assertEqual(grass.germination_period, "7 days")
+        self.assertEqual(grass.color, "Green")
+
+    def test_invalid_addition(self):
+        smartphone = Smartphone("Test Smartphone", "Description", 1000.0, 10, 95.5, "Model X", 256, "Black")
+        grass = LawnGrass("Test Grass", "Description", 50.0, 20, "Country", "7 days", "Green")
+        with self.assertRaises(TypeError):
+            _ = smartphone + grass
+
+    def test_invalid_product_addition(self):
+        category = Category("Test Category", "Description", [])
+        with self.assertRaises(TypeError):
+            category.add_product("Not a product")
 
 
 if __name__ == '__main__':
