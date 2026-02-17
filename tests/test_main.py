@@ -1,5 +1,7 @@
 import unittest
-from src.main import Product, Category, Smartphone, LawnGrass
+from io import StringIO
+import sys
+from src.main import Product, Category, Smartphone, LawnGrass, InitPrintMixin
 
 
 class TestProductCategory(unittest.TestCase):
@@ -126,6 +128,33 @@ class TestProductCategory(unittest.TestCase):
         with self.assertRaises(TypeError):
             category.add_product("Not a product")
 
+
+class TestNewFunctionalities(unittest.TestCase):
+
+    def test_init_print_mixin(self):
+        # Перенаправляем стандартный вывод в StringIO, чтобы поймать вывод
+        captured_output = StringIO()
+        sys.stdout = captured_output
+
+        product = Product("Test Product", "Description", 100.0, 10)
+
+        # Возвращаем стандартный вывод обратно
+        sys.stdout = sys.__stdout__
+
+        # Проверяем, что вывод содержит правильное сообщение
+        expected_output = ("Создан объект класса Product с параметрами: ('Test Product', 'Description', 100.0, 10),"
+                           " {}\n")
+        self.assertIn(expected_output, captured_output.getvalue())
+
+    def test_calculate_total_price(self):
+        product = Product("Test Product", "Description", 100.0, 10)
+        self.assertEqual(product.calculate_total_price(), 1000.0)
+
+        smartphone = Smartphone("Test Smartphone", "Description", 1000.0, 5, 95.5, "Model X", 256, "Black")
+        self.assertEqual(smartphone.calculate_total_price(), 5000.0)
+
+        grass = LawnGrass("Test Grass", "Description", 50.0, 20, "Country", "7 days", "Green")
+        self.assertEqual(grass.calculate_total_price(), 1000.0)
 
 
 if __name__ == '__main__':
