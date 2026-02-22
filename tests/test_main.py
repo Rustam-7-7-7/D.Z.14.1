@@ -156,6 +156,23 @@ class TestNewFunctionalities(unittest.TestCase):
         grass = LawnGrass("Test Grass", "Description", 50.0, 20, "Country", "7 days", "Green")
         self.assertEqual(grass.calculate_total_price(), 1000.0)
 
+    # Тест для проверки исключения при нулевом количестве товара
+    def test_product_with_zero_quantity(self):
+        with self.assertRaises(ValueError):
+            _ = Product("Test Product", "Description", 100.0, 0)
+
+    # Тест для проверки расчета средней цены
+    def test_category_middle_price(self):
+        # Категория с продуктами
+        product1 = Product("Product 1", "Description 1", 100.0, 5)
+        product2 = Product("Product 2", "Description 2", 200.0, 10)
+        category = Category("Test Category", "Description", [product1, product2])
+        self.assertEqual(category.middle_price(), 150.0)
+
+        # Пустая категория
+        empty_category = Category("Empty Category", "Description", [])
+        self.assertEqual(empty_category.middle_price(), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
